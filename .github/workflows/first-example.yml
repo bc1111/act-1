@@ -1,13 +1,30 @@
 name: first workflow
 on: push  # [ push, pull ]
 jobs: 
-    first_job: 
+    build_job_1: 
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
               uses: actions/checkout@v4
             - name: run shell script
               run: chmod 700 ascii-art.sh;./ascii-art.sh
+            - name: sleep command
+              run: sleep 30
+    test_job_2:
+        runs-on: ubuntu-latest
+        steps:
+            - name: sleep command
+              run: sleep 10
+            - name: test file exists
+              run: grep -i "dragon" dragon.txt
+    deploy_job_3:
+        runs-on: ubuntu-latest
+        steps:
+            - name: read file
+              run: cat dragon.txt
+            - name: deploy
+              run: echo "deploying ..."
+              
             # - name: welcome message
             #   run: |
             #     echo "My first github actions job"
