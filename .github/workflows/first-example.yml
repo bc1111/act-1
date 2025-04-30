@@ -11,6 +11,7 @@ jobs:
             - name: sleep command
               run: sleep 30
     test_job_2:
+        needs: build_job_1
         runs-on: ubuntu-latest
         steps:
             - name: sleep command
@@ -18,13 +19,14 @@ jobs:
             - name: test file exists
               run: grep -i "dragon" dragon.txt
     deploy_job_3:
+        needs: test_job_2
         runs-on: ubuntu-latest
         steps:
             - name: read file
               run: cat dragon.txt
             - name: deploy
               run: echo "deploying ..."
-              
+
             # - name: welcome message
             #   run: |
             #     echo "My first github actions job"
