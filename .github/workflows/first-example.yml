@@ -12,7 +12,7 @@ jobs:
                 ls -altr
                 cat README.md
             - name: install cowsay
-              run: sudo apt install cowsay
+              run: sudo apt-get install cowsay
             - name: ascii artwork
               run: cowsay -f dragon "Run for cover" >> dragon.txt
             # - name: list files
