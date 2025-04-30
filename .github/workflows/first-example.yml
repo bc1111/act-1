@@ -15,6 +15,8 @@ jobs:
               run: sudo apt-get install cowsay
             - name: ascii artwork
               run: cowsay -f dragon "Run for cover" >> dragon.txt
+            - name: read dragon.txt
+              run: cat dragon.txt
             # - name: list files
             #   run: ls
             # - name: read files
