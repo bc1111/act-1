@@ -1,45 +1,45 @@
 name: first workflow
 on: push  # [ push, pull ]
 jobs: 
-    build_job_1: 
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v4
-            - name: run shell script
-              run: chmod 700 ascii-art.sh;./ascii-art.sh
-            - name: sleep command
-              run: sleep 30
-    test_job_2:
-        needs: build_job_1
-        runs-on: ubuntu-latest
-        steps:
-            - name: sleep command
-              run: sleep 10
-            - name: test file exists
-              run: grep -i "dragon" dragon.txt
-    deploy_job_3:
-        needs: test_job_2
-        runs-on: ubuntu-latest
-        steps:
-            - name: read file
-              run: cat dragon.txt
-            - name: deploy
-              run: echo "deploying ..."
 
-            # - name: welcome message
-            #   run: |
-            #     echo "My first github actions job"
-            #     ls -altr
-            #     cat README.md
-            # - name: install cowsay
-            #   run: sudo apt-get install cowsay
-            # - name: ascii artwork
-            #   run: cowsay -f dragon "Run for cover" >> dragon.txt
-            # - name: read dragon.txt
-            #   run: cat dragon.txt
-            # - name: list files
-            #   run: ls
-            # - name: read files
-            #   run: cat README.md
+  build_job_1: 
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: run shell script
+      run: chmod 700 ascii-art.sh;./ascii-art.sh
+    - name: upload file
+      uses: actions/upload-artifact@v4
+      with: 
+        name: dragon-text-file
+        path: dragon.txt
+
+  test_job_2:
+    needs: build_job_1
+    runs-on: ubuntu-latest
+    steps:
+    - name: download file
+      uses: actions/download-artifact@v4
+      with:
+       name: dragon-text-file
+    - name: Display structure of downloaded files
+      run: ls -R
+    - name: sleep command
+      run: sleep 10
+    - name: test file exists
+      run: grep -i "dragon" dragon.txt
+
+  deploy_job_3:
+    needs: test_job_2
+    runs-on: ubuntu-latest
+    steps:
+    - name: download file
+      uses: actions/download-artifact@v4
+      with:
+       name: dragon-text-file
+    - name: read file
+      run: cat dragon.txt
+    - name: deploy
+      run: echo "deploying ..."
               
