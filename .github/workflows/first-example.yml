@@ -7,7 +7,7 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v4
             - name: run shell script
-              run: ./ascii-art.sh
+              run: chmod 700 ascii-art.sh;./ascii-art.sh
             # - name: welcome message
             #   run: |
             #     echo "My first github actions job"
